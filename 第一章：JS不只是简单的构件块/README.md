@@ -237,3 +237,51 @@ while((matchArray = re.exec(src)) != null){
 console.log(strArr)
 ```
 
+#### 7.使用捕获圆括号交换一个字符串中的单词
+
+问题：我们可以接受一个带有名称和姓氏的输入字符串，并且交换名称，以便让姓氏先出现。
+
+解决方案：使用捕获圆括号和一个正则表达式在字符串中找到并记住两个名字，然后互换它们。
+
+```javascript
+var name = 'Tom Lincoln'
+var re = /^(\w+)\s(\w+)$/
+var newName = name.replace(re, '$2,$1')
+console.log(newName)
+
+var name1 = 'Abe Lincoln'
+var re1 = /^(\w+)\s(\w+)$/
+var result = re.exec(name1)
+var newName1 = result[2] + ',' + result[1]
+console.log(newName1)
+```
+
+#### 8.使用命名实体来替代HTML标签
+
+问题：你想要把示例标记粘到一个web页面中，并且转义该标记，打印出尖括号而不是进行内容解析。
+
+解决方案：使用正则表达式把尖括号(<>)转换为命名的实体：&lt和&gt
+
+```java
+var pieceOfHtml = "<p>this is a <span>paragraph</span></p>"
+pieceOfHtml = pieceOfHtml.replace(/</g,'&lt;')
+pieceOfHtml = pieceOfHtml.replace(/>/g,'&gt;')
+console.log(pieceOfHtml)
+```
+
+#### 9.把一个ISO 8601格式的日期转换为Date对象可接受的一种格式
+
+问题：需要把一个ISO 8601格式的日期字符串转换为可以用于创建一个新的Date对象的值。
+
+解决方案：把ISO 8601字符串解析为单个的日期值，并且使用它来创建一个新的javascript Date对象实例。
+
+```javascript
+var str = '2017-04-27T22:06:22Z'
+str = str.replace(/\D/g,' ')
+var dtcomps = str.split(' ')
+//在基于1的ISO 8601月份和基于0的日期格式之间转换
+dtcomps[1]--
+var con = new Date(Date.UTC.apply(null,dtcomps))
+console.log(con.toString())  //Fri Apr 28 2017 06:06:22 GMT+0800 (中国标准时间)
+```
+
